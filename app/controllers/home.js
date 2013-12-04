@@ -4,13 +4,13 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User');
 
 exports.index = function (req, res) {
-  User.find(function (err, user) {
-    if (err) { 
-      throw new Error(err); 
+  User.find(function (err, users) {
+    if (err) {
+      throw new Error(err);
     }
     res.render('home/index', {
-  	   title: 'Logged In',
-       user: user
+      title: 'Logged In',
+      users: users
     });
   });
   Article.find(function (err, articles) {

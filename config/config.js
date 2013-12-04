@@ -1,6 +1,6 @@
 var path = require('path'),
-    rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+  rootPath = path.normalize(__dirname + '/..'),
+  env = 'development';
 
 var config = {
   development: {
@@ -9,7 +9,7 @@ var config = {
       name: 'webapp'
     },
     port: 3000,
-    db: 'mongodb://localhost/webapp-development'
+    db: 'mongodb://rw-user:rw-user-password@paulo.mongohq.com:10091/webapp-development'
   },
 
   test: {

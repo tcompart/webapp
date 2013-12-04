@@ -1,7 +1,5 @@
-module.exports = function(app){
-
-	//home route
-	var home = require('../app/controllers/home');
-	app.get('/', home.index);
-
+module.exports = function (app) {
+  //home route
+  var home = require('../app/controllers/home');
+  app.get('/', home.index);
 };

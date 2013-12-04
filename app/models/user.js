@@ -10,7 +10,7 @@ var UserSchema = new Schema({
 });
 
 UserSchema.virtual('date')
-  .get(function(){
+  .get(function () {
     return this._id.getTimestamp();
   });
 
