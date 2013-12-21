@@ -8,7 +8,7 @@ var config = {
     app: {
       name: 'webapp'
     },
-    port: 80,
+    port: 8000,
     db: 'mongodb://rw-user:rw-user-password@paulo.mongohq.com:10091/webapp-development'
   },
 
