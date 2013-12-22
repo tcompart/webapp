@@ -3,11 +3,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Your Website</title>
-  <link href="/css/bootstrap.css" />
-  <link href="/css/font-awesome.css" />
-  <script type="text/javascript" src="/js/angular.js"></script>
-  <script type="text/javascript" src="/app/app.js"></script>
-  <script type="text/javascript" src="/app/controllers/content.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
 </head>
 <body ng-app="webapp">
   <div id="version" ng-controller="ContentCtrl">
@@ -23,6 +20,8 @@
     </nav>
   </header>
   
+  <messagebox></messagebox>
+
   <section ng-controller="ContentCtrl">
     <div id="addArticleForm" ng-show="underEdit">
         <form ng-click="validate()">
@@ -63,6 +62,12 @@
     <p>Copyright 2009 Your name</p>
   </footer>
 
+
+
+  <script type="text/javascript" src="/js/angular.js"></script>
+  <script type="text/javascript" src="/app/app.js"></script>
+  <script type="text/javascript" src="/app/controllers/message.js"></script>
+  <script type="text/javascript" src="/app/controllers/content.js"></script>
 </body>
 
 </html>

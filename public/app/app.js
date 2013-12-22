@@ -1,2 +1,2 @@
-var webapp = angular.module('webapp', []);
-webapp.constant('version', '0.1');
+var webapp = angular.module('webapp', ['webapp.articles']);
+webapp.value('version', '0.1');

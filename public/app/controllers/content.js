@@ -1,4 +1,4 @@
-var app = angular.module('webapp');
+var app = angular.module('webapp.articles', ['webapp.messages']);
 
 app.factory('ArticleService', ['$http', function ($http) {
   return {
@@ -6,9 +6,12 @@ app.factory('ArticleService', ['$http', function ($http) {
       return [ { title : "Titel 1", content: "Content2 for a very long " } ];
     },
 
-    addArticle : function (title, content) {
+    addArticle : function (inputtitle, inputcontent) {
       var finishedSuccessfully = false;
-      $http.post('/api/article', { "article" : { "title" : title, "content" : content}})
+      $http.post('/api/article', { "article" : {
+        "title": inputtitle,
+        "content" : inputcontent
+      }})
         .success(function (data, status, headers, config) {
           if (status === 201) {
             finishedSuccessfully = true;
@@ -23,11 +26,17 @@ app.factory('ArticleService', ['$http', function ($http) {
 }]);
 
 app.controller('ContentCtrl', ['$scope', 'ArticleService', function ($scope, articleService) {
-  $scope.version = '0.1';
   $scope.articles = articleService.getArticles();
-  $scope.underEdit = true;
+  $scope.underEdit = false;
 
-  $scope.addArticle = function (titel, content) {
-    articleService.addArticle(titel, content);
+  $scope.showNewArticleDiv = function () {
+    $scope.underEdit = true;
+  };
+
+  $scope.addArticle = function () {
+    if (articleService.addArticle($scope.title, $scope.content)) {
+      $scope.articles = articleService.getArticles();
+      $scope.underEdit = false;
+    }
   };
 }]);
