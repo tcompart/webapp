@@ -23,6 +23,7 @@
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "crypto": "latest",
+    "newrelic": "latest",
     "underscore": "latest",
     "view-helpers": "latest",
     "winston": "latest",

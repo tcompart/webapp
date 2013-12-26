@@ -1,3 +1,4 @@
+require('newrelic');
 var express = require('express'),
   mongoose = require('mongoose'),
   fs = require('fs'),
@@ -29,7 +30,10 @@ process.on('uncaughtException', function (err) {
   console.error(err);
   console.log("Node NOT Exiting...");
 });
-app.listen(config.port);
+
+var port = process.env.PORT || config.port;
+app.listen(port);
+console.log('Express server started on port %s with environment %s', port, process.env.NODE_ENV);
 
 app.post('/api/article', function (req, res, data) {
   function isValid(article) {
