@@ -6,7 +6,7 @@ app.factory('ArticleService', ['$http', function ($http) {
       return [ { title : "Titel 1", content: "Content2 for a very long " } ];
     },
 
-    addArticle : function (inputtitle, inputcontent) {
+    addArticle : function (inputtitle, inputcontent, callback) {
       var finishedSuccessfully = false;
       $http.post('/api/article', { "article" : {
         "title": inputtitle,
@@ -14,29 +14,30 @@ app.factory('ArticleService', ['$http', function ($http) {
       }})
         .success(function (data, status, headers, config) {
           if (status === 201) {
-            finishedSuccessfully = true;
+            callback();
           }
-        })
-        .error(function (data, status, headers, config) {
-
         });
-      return finishedSuccessfully;
+      return true;
     }
   };
 }]);
 
-app.controller('ContentCtrl', ['$scope', 'ArticleService', function ($scope, articleService) {
+app.controller('ContentCtrl', ['$scope', 'ArticleService', 'Version', 'MessageService', function ($scope, articleService, version, messageService) {
   $scope.articles = articleService.getArticles();
   $scope.underEdit = false;
+  $scope.contentVersion = version;
 
   $scope.showNewArticleDiv = function () {
     $scope.underEdit = true;
   };
 
   $scope.addArticle = function () {
-    if (articleService.addArticle($scope.title, $scope.content)) {
+    articleService.addArticle($scope.title, $scope.content, function () {
+      messageService.addMessage("Article '" + $scope.title + "' was published.");
       $scope.articles = articleService.getArticles();
       $scope.underEdit = false;
-    }
+      $scope.title = "";
+      $scope.content = "";
+    });
   };
 }]);
