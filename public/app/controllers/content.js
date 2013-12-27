@@ -31,24 +31,17 @@ app.factory('ArticleService', ['$http', function ($http) {
 app.controller('ContentCtrl', ['$scope', 'ArticleService', 'Version', 'MessageService', function ($scope, articleService, version, messageService) {
   articleService.getArticles(function (data) {
     $scope.articles = data;
+    $scope.currentArticle = data[0];
   });
   $scope.underEdit = false;
   $scope.contentVersion = version;
-
-  $scope.showArticle = function (index) {
-    $scope.articleIndexPresented = index;
-  };
 
   $scope.showNewArticleDiv = function () {
     $scope.underEdit = true;
   };
 
-  $scope.currentArticle = function () {
-    var index = $scope.articleIndexPresented;
-    if (index && $scope.articles && $scope.articles.length > index) {
-      return $scope.articles[index];
-    }
-    return {};
+  $scope.showArticle = function (article) {
+    $scope.currentArticle = article;
   };
 
   $scope.addArticle = function () {
