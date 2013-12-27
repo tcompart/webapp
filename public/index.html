@@ -33,19 +33,15 @@
 </head>
 <body ng-app="webapp" ng-controller="ContentCtrl">
 	<noscript id="requirements">JavaScript is disabled.</noscript>
-  <div id="version">
-    <p>{{contentVersion}}</p>
-    <input ng-model="contentVersion" value="{{contentVersion}}" type="text" />
-  </div>
   <header>
     <nav>
       <ul>
-        <li ng-repeat="article in articles" ng-bind="article.title"></li>
+        <li ng-repeat="article in articles" ng-bind="article.title" ng-click="showArticle($index)"></li>
         <li ng-click="showNewArticleDiv()"><span class="fa fa-plus"></span></li>
       </ul>
     </nav>
   </header>
-  
+
   <messagebox></messagebox>
 
   <section>
@@ -57,9 +53,14 @@
           <button type="submit" class="btn btn-default" ng-click="addArticle()">Add article</button>
         </form>
     </div>
-    <article ng-repeat="article in articles">
-      <h2 ng-bind="article.title"></h2>
-      <p> <span ng-bind="article.content"></span></p>
+    <article ng-show="articleIndexPresented">
+      <header>
+        <h2 ng-bind="currentArticle().title"></h2>
+      </header>
+      <p> 
+        <span ng-show="currentArticle().content" ng-bind="currentArticle().content"></span>
+        <span ng-hide="currentArticle().content">Sorry, but we do not have content here!</span>
+      </p>
     </article>
     <article>
       <header>
@@ -85,7 +86,7 @@
   </aside>
 
   <footer>
-    <p>Copyright 2009 Your name</p>
+    <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
   </footer>
 </body>
 

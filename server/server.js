@@ -3,7 +3,10 @@ var express = require('express'),
   mongoose = require('mongoose'),
   fs = require('fs'),
   routes = require('../routes/routes'),
-  config = require('./config');
+  config = require('./config'),
+  article = routes.article;
+
+console.log("",article);
 
 var csrfValue = function (req) {
   var token = (req.body && req.body._csrf)
@@ -35,14 +38,5 @@ var port = process.env.PORT || config.port;
 app.listen(port);
 console.log('Express server started on port %s with environment %s', port, process.env.NODE_ENV);
 
-app.post('/api/article', function (req, res, data) {
-  function isValid(article) {
-    return (article && article.title && article.content);
-  }
-  if (isValid(req.body.article)) {
-    res.writeHead(201, "Article created");
-  } else {
-    res.writeHead(400, "Bad request");
-  }
-  res.end();
-});
+app.get('/api/articles', article.getArticles);
+app.post('/api/articles', article.addArticle);
