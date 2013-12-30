@@ -11,83 +11,109 @@
   <script type="text/javascript" src="/app/controllers/message.js"></script>
   <script type="text/javascript" src="/app/controllers/content.js"></script>
   <noscript>
+    <style type="text/css">
+      body > * {
+        display: none;
+      }
+      body > noscript {
+        display: block;
+        background: #000;
+        font-size: 48px;
+        font-style: oblique;
+        color: #FFF;
+        text-align: center;
+        margin-top: 20px;
+        margin-left: 5px;
+        line-height: 90px;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    </style>
+  </noscript>
   <style type="text/css">
-    body > * {
-      display: none;
-    }
-    body > noscript {
-      display: block;
-      background: #000;
-      font-size: 48px;
-      font-style: oblique;
-      color: #FFF;
-      text-align: center;
-      margin-top: 20px;
-      margin-left: 5px;
-      line-height: 90px;
-      max-width: 100%;
-      max-height: 100%;
+    .container {
+      background-color: #D4D4D4;
+      margin: 0px auto;
+      padding-top: 10px;
     }
   </style>
-  </noscript>
 </head>
 <body ng-app="webapp" ng-controller="ContentCtrl">
-	<noscript id="requirements">JavaScript is disabled.</noscript>
-  <header>
-    <nav>
-      <ul>
-        <li ng-repeat="article in articles" ng-bind="article.title" ng-click="showArticle(article)"></li>
-        <li ng-click="showNewArticleDiv()"><span class="fa fa-plus"></span></li>
-      </ul>
-    </nav>
-  </header>
-
-  <messagebox></messagebox>
-
-  <section>
-    <div id="addArticleForm" ng-show="underEdit">
-        <form ng-click="validate()">
-          <span><h2>Add an article:</h2><button class="btn btn-small fa fa-times" ng-click="underEdit=false"></button></span>
-          <input placeholder="Article Title" name="titel" type="text" ng-model="title" />
-          <textarea placeholder="Content of the article" name="content" ng-model="content"></textarea>
-          <button type="submit" class="btn btn-default" ng-click="addArticle()">Add article</button>
-        </form>
+	<noscript id="requirements">JavaScript is disabled. Please enable javascript. Otherwise this page will not be working as expected.</noscript>
+  <div class="container">
+    <div class="row">
+      <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">Rethought</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-click="showArticle(article)">
+              <a class="navbar-brand" ng-bind="article.title"></a>
+            </li>
+            <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
+          </ul>
+          <ul class="hide nav navbar-nav navbar-right">
+            <li>
+              <a class="navbar-brand">About</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
     </div>
-    <article ng-show="currentArticle">
-      <header>
-        <h2 ng-bind="currentArticle.title"></h2>
-      </header>
-      <p> 
-        <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
-        <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
-      </p>
-    </article>
-    <article>
-      <header>
-        <h2>Article title</h2>
-        <p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-      </header>
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-    </article>
+  </div>
+  <div class="container">
+    <messagebox class="row"></messagebox>
+    <section class="row">
+      <div class="col-md-2">
+        <div data-clampedwidth=".myParent" class="bs-sidebar bs-docs-sidenav hidden-print affix" role="complementary">
+          <ul class="nav bs-sidenav">
+            <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-click="showArticle(article)">
+              <a class="navbar-brand" ng-bind="article.title"></a>
+            </li>
+            <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-10" role="main">
+        <div id="addArticleForm" ng-show="underEdit">
+          <form ng-click="validate()">
+            <span><h2>Add an article:</h2><button class="btn btn-small fa fa-times" ng-click="underEdit=false"></button></span>
+            <input placeholder="Article Title" name="titel" type="text" ng-model="title" />
+            <textarea placeholder="Content of the article" name="content" ng-model="content"></textarea>
+            <button type="submit" class="btn btn-default" ng-click="addArticle()">Add article</button>
+          </form>
+        </div>
+        <article ng-show="currentArticle" ng-hide="underEdit">
+          <header>
+            <h2 ng-bind="currentArticle.title"></h2>
+          </header>
+          <p> 
+            <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
+            <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
+          </p>
+        </article>
 
-    <article>
-      <header>
-        <h2>Article title</h2>
-        <p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-      </header>
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-    </article>
-
-  </section>
-
-  <aside>
-    <h2>About section</h2>
-    <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-  </aside>
-
-  <footer>
-    <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
-  </footer>
+        <aside class="row" role="main">
+          <div class="col-md-12">
+          <h2>About section</h2>
+          <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+          </div>
+        </aside>
+        <footer class="row" role="main">
+          <div class="col-md-12">
+            <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </div>
 </body>
 
 </html>

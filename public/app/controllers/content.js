@@ -22,8 +22,10 @@ app.factory('ArticleService', ['$http', function ($http) {
           if (status === 201) {
             callback();
           }
+        }).
+        error(function () {
+          callback(new Error("unable to add article: " + inputtitle));
         });
-      return true;
     }
   };
 }]);
@@ -45,12 +47,18 @@ app.controller('ContentCtrl', ['$scope', 'ArticleService', 'Version', 'MessageSe
   };
 
   $scope.addArticle = function () {
-    articleService.addArticle($scope.title, $scope.content, function () {
-      messageService.addMessage("Article '" + $scope.title + "' was published.");
-      $scope.articles = articleService.getArticles();
-      $scope.underEdit = false;
-      $scope.title = "";
-      $scope.content = "";
+    articleService.addArticle($scope.title, $scope.content, function (err) {
+      if (err) {
+        messageService.addMessage("Failed to publish article '" + $scope.title + "'.");
+        messageService.setStateWarn();
+      } else {
+        messageService.addMessage("Article '" + $scope.title + "' was published.");
+        messageService.setStateOk();
+        $scope.articles = articleService.getArticles();
+        $scope.underEdit = false;
+        $scope.title = "";
+        $scope.content = "";
+      }
     });
   };
 }]);

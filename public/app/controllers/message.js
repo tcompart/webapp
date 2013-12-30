@@ -2,16 +2,16 @@ var app = angular.module('webapp.messages', []);
 
 app.factory('MessageService', ['$rootScope', function ($scope) {
   $scope.messages = [];
-  $scope.state = '';
+  $scope.state = 'state-success-bg';
   return {
     setStateOk : function () {
-      $scope.state = "OK";
+      $scope.state = "success";
     },
     setStateWarn : function () {
-      $scope.state = "WARN";
+      $scope.state = "warning";
     },
     setStateError : function () {
-      $scope.state = "ERROR";
+      $scope.state = "error";
     },
     addMessage : function (messagetext) {
       $scope.messages.splice(0, 0, messagetext);
