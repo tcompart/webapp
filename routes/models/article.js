@@ -1,3 +1,4 @@
+/*globals db*/
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -5,22 +6,30 @@ var Article;
 
 module.exports.init = function () {
   var ArticleSchema = new Schema({
-      title: String,
-      url: String,
-      content: String
-    });
-
-  ArticleSchema.virtual('date').get(function () {
-    return this._id.getTimestamp();
+    title: String,
+    url: String,
+    content: String,
+    created_at: { type: Date },
+    updated_at: { type: Date }
   });
+
+  ArticleSchema.pre('save', function (next) {
+    this.updated_at = new Date();
+    if (!this.created_at) {
+      this.created_at = new Date();
+    }
+    next();
+  });
+
   Article = mongoose.model('Article', ArticleSchema);
 };
 
 module.exports.getArticles = function (req, res, data) {
-  Article.find({}, {'title': 1, 'content': 1, '_id': 0}, function (err, articles) {
+  Article.find({}, {'_id': 1, 'title': 1, 'content': 1}, function (err, articles) {
     if (err) {
       throw new Error(err);
     }
+    console.log("Articles were requested, and will answer with ", articles.length, " articles.");
     res.json(articles);
     res.end();
   });
@@ -37,6 +46,7 @@ module.exports.addArticle = function (req, res, data) {
         console.error("Article could not be stored: ", article);
         res.writeHead(500, "Internal server error");
       } else {
+        console.log("Created and added article: ", article);
         res.writeHead(201, "Article created");
       }
       res.end();
@@ -47,3 +57,11 @@ module.exports.addArticle = function (req, res, data) {
   }
 };
 
+module.exports.deleteArticle = function (req, res, data) {
+  var articleId = req.params.id;
+  Article.findById(articleId, function (err, article) {
+    console.log("Deleting and confirming deletion of article: ", article);
+    res.json(article, 204);
+    res.end();
+  }).remove();
+};

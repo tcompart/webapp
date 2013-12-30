@@ -40,3 +40,4 @@ console.log('Express server started on port %s with environment %s', port, proce
 
 app.get('/api/articles', article.getArticles);
 app.post('/api/articles', article.addArticle);
+app.delete('/api/articles/:id', article.deleteArticle);
