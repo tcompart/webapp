@@ -40,7 +40,7 @@ app.factory('ArticleService', ['$http', function ($http) {
       if (article && article.id) {
         $http.delete('/api/articles/' + article.id, {"id": article.id}).
           success(function (data, status) {
-            if (status === 204) {
+            if (status === 200) {
               callback(null, data);
             }
           }).

@@ -6,14 +6,33 @@ var express = require('express'),
   config = require('./config'),
   article = routes.article;
 
-console.log("",article);
-
 var csrfValue = function (req) {
   var token = (req.body && req.body._csrf)
     || (req.query && req.query._csrf)
     || (req.headers['x-csrf-token'])
     || (req.headers['x-xsrf-token']);
   return token;
+};
+
+var allowCrossDomain = function (req, res, next) {
+  // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    var origin = (req.headers.origin || "*");
+    res.writeHead(
+      "204",
+      "No Content",
+      {
+        'Access-Control-Allow-Origin': origin,
+        'Access-Control-Allow-Methods': "GET, POST, PUT, DELETE, OPTIONS",
+        'Access-Control-Allow-Headers': "content-type, accept",
+        'Access-Control-Max-Age': 10, // in Seconds.
+        'Content-Length': 0
+      }
+    );
+    res.end();
+  } else {
+    next();
+  }
 };
 
 var app = express();
@@ -23,6 +42,7 @@ app.use(express.json());
 app.use(express.cookieParser('your secret here'));
 app.use(express.cookieSession());
 app.use(express.csrf({value : csrfValue}));
+app.use(allowCrossDomain);
 app.use(app.router);
 app.use(function (req, res, next) {
   res.cookie('XSRF-TOKEN', req.csrfToken());

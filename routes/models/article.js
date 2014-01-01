@@ -30,7 +30,7 @@ module.exports.getArticles = function (req, res, data) {
       throw new Error(err);
     }
     console.log("Articles were requested, and will answer with ", articles.length, " articles.");
-    res.json(articles);
+    res.json(articles, 200);
     res.end();
   });
 };
@@ -60,8 +60,14 @@ module.exports.addArticle = function (req, res, data) {
 module.exports.deleteArticle = function (req, res, data) {
   var articleId = req.params.id;
   Article.findById(articleId, function (err, article) {
-    console.log("Deleting and confirming deletion of article: ", article);
-    res.json(article, 204);
-    res.end();
-  }).remove();
+    if (err) {
+      console.error("Error while deleting article '", articleId, "': ", err);
+    } else {
+      console.log("Deleting and confirming deletion of article: ", article);
+      article.remove(function () {
+        res.json(article, 200);
+        res.end();
+      });
+    }
+  });
 };
