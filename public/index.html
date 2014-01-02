@@ -71,7 +71,6 @@
     </div>
   </div>
   <div class="container">
-    <messagebox class="row"></messagebox>
     <section class="row">
       <div class="col-md-2">
         <div data-clampedwidth=".myParent" class="bs-sidebar bs-docs-sidenav hidden-print affix" role="complementary">
@@ -87,6 +86,7 @@
         </div>
       </div>
       <div class="col-md-10" role="main">
+        <messagebox class="row"></messagebox>
         <div id="addArticleForm" ng-show="underEdit">
           <form ng-click="validate()">
             <span><h2>Add an article:</h2><button class="btn btn-small fa fa-times" ng-click="underEdit=false"></button></span>

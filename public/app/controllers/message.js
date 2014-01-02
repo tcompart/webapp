@@ -1,6 +1,6 @@
 var app = angular.module('webapp.messages', []);
 
-app.factory('MessageService', ['$rootScope', function ($scope) {
+app.factory('MessageService', ['$rootScope', '$timeout', function ($scope, $timeout) {
   $scope.messages = [];
   $scope.state = 'state-success-bg';
   return {
@@ -15,6 +15,9 @@ app.factory('MessageService', ['$rootScope', function ($scope) {
     },
     addMessage : function (messagetext) {
       $scope.messages.splice(0, 0, messagetext);
+      $timeout(function () {
+        $scope.messages.splice(0,1);
+      }, 5000);
     },
     getMessages : function () {
       return $scope.messages;
