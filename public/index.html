@@ -36,6 +36,11 @@
       margin: 0px auto;
       padding-top: 10px;
     }
+    body { padding-top: 40px; }
+    @media screen and (max-width: 991px) {
+        body { padding-top: 0px; }
+        #navbarSide { display: none; }
+    }
   </style>
 </head>
 <body ng-app="webapp" ng-controller="ContentCtrl">
@@ -71,9 +76,9 @@
     </div>
   </div>
   <div class="container">
-    <section class="row">
-      <div class="col-md-2">
-        <div data-clampedwidth=".myParent" class="bs-sidebar bs-docs-sidenav hidden-print affix" role="complementary">
+    <div class="row">
+      <div id="navbarSide" class="col-md-2">
+        <div data-clampedwidth=".main" class="bs-sidebar bs-docs-sidenav hidden-print affix">
           <ul class="nav bs-sidenav">
             <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-mouseenter="showDeleteAction(article)" ng-mouseleave="hideDeleteAction(article)" ng-click="showArticle(article)">
               <a class="navbar-brand">
@@ -95,16 +100,17 @@
             <button type="submit" class="btn btn-default" ng-click="addArticle()">Add article</button>
           </form>
         </div>
-        <article ng-show="currentArticle" ng-hide="underEdit">
-          <header>
-            <h2 ng-bind="currentArticle.title"></h2>
-          </header>
-          <p> 
-            <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
-            <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
-          </p>
-        </article>
-
+        <section>
+          <article ng-show="currentArticle" ng-hide="underEdit">
+            <header>
+              <h2 ng-bind="currentArticle.title"></h2>
+            </header>
+            <p> 
+              <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
+              <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
+            </p>
+          </article>
+        </section>
         <aside class="row" role="main">
           <div class="col-md-12">
           <h2>About section</h2>
@@ -117,7 +123,7 @@
           </div>
         </footer>
       </div>
-    </section>
+    </div>
   </div>
 </body>
 
