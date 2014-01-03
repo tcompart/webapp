@@ -14,25 +14,17 @@ var csrfValue = function (req) {
   return token;
 };
 
-var allowCrossDomain = function (req, res, next) {
-  // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    var origin = (req.headers.origin || "*");
-    res.writeHead(
-      "204",
-      "No Content",
-      {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': "GET, POST, PUT, DELETE, OPTIONS",
-        'Access-Control-Allow-Headers': "content-type, accept",
-        'Access-Control-Max-Age': 10, // in Seconds.
-        'Content-Length': 0
-      }
-    );
-    res.end();
-  } else {
-    next();
+var allowCORSRequest = function (req, res, next) {
+  var origin = (req.headers.origin || "*");
+  res.set('Access-Control-Allow-Origin', origin);
+  res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTION');
+  res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+  if ('OPTIONS' === req.method) {
+    res.set('Access-Control-Allow-Max-Age', 10);
+    res.set('Content-Length', 0);
+    return res.send(204, "No Content");
   }
+  next();
 };
 
 var app = express();
@@ -42,12 +34,13 @@ app.use(express.json());
 app.use(express.cookieParser('your secret here'));
 app.use(express.cookieSession());
 app.use(express.csrf({value : csrfValue}));
-app.use(allowCrossDomain);
+app.all('*', allowCORSRequest);
 app.use(app.router);
 app.use(function (req, res, next) {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   next();
 });
+
 app.use(express.static(__dirname + '/../public'));
 process.on('uncaughtException', function (err) {
   console.error(err);
