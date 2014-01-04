@@ -36,10 +36,23 @@ var supportCrossOriginResourceSharingRequests = function (req, res, next) {
   next();
 };
 
+var secure_url_redirect = function (req, res) {
+  return res.redirect(301, ['https://', req.host, ":", config.secure_port || 443, req.originalUrl].join(''));
+};
+
+var supportSecureConnectionsOnlyOnHeroku = function (req, res, next) {
+  if (process.env.NODE_ENV === "production") {
+    res.setHeader('Strict-Transport-Security', 'max-age=8640000; includeSubDomains');
+    if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] === "http") {
+      return secure_url_redirect(req, res);
+    }
+  }
+  next();
+};
+
 var supportSecureConnectionsOnly = function (req, res, next) {
-  console.log("Got request....");
   if (!req.secure) {
-    return res.redirect(['https://', req.host, ":", config.secure_port || 80, req.originalUrl].join(''));
+    return secure_url_redirect(req, res);
   }
   next();
 };
@@ -56,7 +69,9 @@ app.use(supportCrossOriginResourceSharingRequests);
 app.use(supportAngularXSRFToken);
 app.use(app.router);
 
-app.all("*", supportSecureConnectionsOnly);
+app.use(supportSecureConnectionsOnlyOnHeroku);
+app.use(supportSecureConnectionsOnly);
+
 app.use(express.static(__dirname + '/../public'));
 process.on('uncaughtException', function (err) {
   console.error("Critical uncaught error was thrown: ", err);
