@@ -51,7 +51,7 @@ var supportSecureConnectionsOnlyOnHeroku = function (req, res, next) {
 };
 
 var supportSecureConnectionsOnly = function (req, res, next) {
-  if (!req.secure) {
+  if (process.env.NODE_ENV !== "production" && !req.secure) {
     return secure_url_redirect(req, res);
   }
   next();
