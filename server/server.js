@@ -37,7 +37,7 @@ var supportCrossOriginResourceSharingRequests = function (req, res, next) {
 };
 
 var secure_url_redirect = function (req, res) {
-  return res.redirect(301, ['https://', req.host, ":", config.secure_port || 443, req.originalUrl].join(''));
+  return res.redirect(301, ['https://', req.host, ":", config.secure_port || 443, req.url].join(''));
 };
 
 var supportSecureConnectionsOnlyOnHeroku = function (req, res, next) {
