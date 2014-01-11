@@ -4,6 +4,8 @@ module.exports = function (config) {
     files : [
       'public/js/angular.js',
       'public/js/angular-*.js',
+      'public/js/sha512.js',
+      'public/js/aes.js',
       'tests/app/lib/angular-mocks.js',
       'public/app/**/*.js',
       'tests/app/unit/**/*.js'
