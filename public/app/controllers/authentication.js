@@ -44,6 +44,18 @@ app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$
     });
   };
 
+  var userIsLoggedIn = function () {
+    return $scope.logintext !== 'Login';
+  };
+  
+  $scope.toggleLoginStatus = function () {
+    if (userIsLoggedIn()) {
+      $scope.logintext = 'Login';
+    } else {
+      $scope.logintext = 'Logout';
+    }
+  };
+
   var changeLocation = function (url, forceReload) {
     $scope = $scope || angular.element(document).scope();
     if (forceReload || $scope.$$phase) {
@@ -69,17 +81,10 @@ app.directive('login', [function () {
     controller: 'CryptCtrl',
     templateUrl: '/app/partials/login-logout-status.html',
     link: function (scope, element, attrs) {
-      scope.logintext = 'Login';
+      scope.toggleLoginStatus();
       element.bind('click', function () {
-        scope.$apply(function () {
-          if (scope.logintext === 'Login') {
-            scope.logintext = 'Logout';
-          } else {
-            scope.logintext = 'Login';
-          }
-        });
+        scope.$apply(scope.toggleLoginStatus);
       });
-
     }
   };
 }]);
