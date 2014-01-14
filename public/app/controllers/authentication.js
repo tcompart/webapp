@@ -36,9 +36,6 @@ app.factory('AuthenticationService', ['$http', '$cookies', function ($http, $coo
 app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$location', '$window', '$cookies', '$http', function ($rootScope, $scope, authenticationService, $location, $window, $cookies, $http) {
 
   $scope.login = function (username, password) {
-    console.log("username: ", username);
-    console.log('password: ', password);
-    console.log('XSRF-TOKEN: ', $cookies['XSRF-TOKEN']);
     $http.post('/login', {
       user : username,
       data : authenticationService.encrypt(password, authenticationService.hash([username, $cookies['XSRF-TOKEN']])).toString()
@@ -68,15 +65,21 @@ app.directive('login', [function () {
   return {
     restrict: 'E',
     replace: true,
+    scope: {},
     controller: 'CryptCtrl',
     templateUrl: '/app/partials/login-logout-status.html',
-    link: function (scope, element, attr) {
+    link: function (scope, element, attrs) {
       scope.logintext = 'Login';
       element.bind('click', function () {
         scope.$apply(function () {
-          scope.logintext = "Logout";
+          if (scope.logintext === 'Login') {
+            scope.logintext = 'Logout';
+          } else {
+            scope.logintext = 'Login';
+          }
         });
       });
+
     }
   };
 }]);

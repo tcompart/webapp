@@ -138,5 +138,12 @@ describe('authenticationModule', function () {
       element.click();
       expect(element.text()).toEqual('Logout');
     });
+
+    it('should switch back to login if logout is displayed', function () {
+      element.click();
+      expect(element.text()).toEqual('Logout');
+      element.click();
+      expect(element.text()).toEqual('Login');
+    });
   });
 });
