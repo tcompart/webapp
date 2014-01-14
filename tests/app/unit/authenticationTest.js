@@ -9,7 +9,7 @@ describe('authenticationModule', function () {
     this.addMatchers({});
   });
 
-  describe('CryptographiController', function () {
+  describe('CryptographicController', function () {
     var cryptographicCtrl, scope, rootScope, http, httpBackend, cookie;
 
     beforeEach(inject(function ($rootScope, $controller, $httpBackend, AuthenticationService, $http, $cookies) {
@@ -112,5 +112,31 @@ describe('authenticationModule', function () {
       var hash = AuthenticationService.hash(['word1', 'word2', 'word3']);
       expect(hash).toEqual(AuthenticationService.hash(['word1', 'word2', 'word3']));
     }));
+  });
+
+  describe('AuthenticationDirective', function () {
+    var scope, authenticationDirective, element;
+
+    beforeEach(module('templates'));
+
+    beforeEach(inject(function ($templateCache) {
+      var template = $templateCache.get('public/app/partials/login-logout-status.html');
+      $templateCache.put('/app/partials/login-logout-status.html', template);
+    }));
+
+    beforeEach(inject(function ($rootScope, $compile, $templateCache, $window) {
+      scope = $rootScope.$new();
+      element = $compile('<login></login>')(scope);
+      scope.$digest();
+    }));
+
+    it('should show login at first', function () {
+      expect(element.text()).toEqual('Login');
+    });
+
+    it('should display logout after click', function () {
+      element.click();
+      expect(element.text()).toEqual('Logout');
+    });
   });
 });

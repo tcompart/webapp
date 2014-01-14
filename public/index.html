@@ -11,6 +11,7 @@
   <script type="text/javascript" src="/app/app.js"></script>
   <script type="text/javascript" src="/app/controllers/message.js"></script>
   <script type="text/javascript" src="/app/controllers/content.js"></script>
+  <script type="text/javascript" src="/app/controllers/authentication.js"></script>
   <noscript>
     <style type="text/css">
       body > * {
@@ -67,9 +68,12 @@
             </li>
             <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
           </ul>
-          <ul class="hide nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <a class="navbar-brand">About</a>
+            </li>
+            <li>
+              <login></login>
             </li>
           </ul>
         </nav>

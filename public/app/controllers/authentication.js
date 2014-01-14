@@ -62,5 +62,21 @@ app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$
       changeLocation("/login", true);
     }
   });
+}]);
 
+app.directive('login', [function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    controller: 'CryptCtrl',
+    templateUrl: '/app/partials/login-logout-status.html',
+    link: function (scope, element, attr) {
+      scope.logintext = 'Login';
+      element.bind('click', function () {
+        scope.$apply(function () {
+          scope.logintext = "Logout";
+        });
+      });
+    }
+  };
 }]);

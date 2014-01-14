@@ -1,4 +1,4 @@
-var webapp = angular.module('webapp', ['webapp.articles']);
+var webapp = angular.module('webapp', ['webapp.articles', 'webapp.authentication']);
 webapp.constant('Version', '0.1');
 
 webapp.config(['$httpProvider', function($httpProvider) {
