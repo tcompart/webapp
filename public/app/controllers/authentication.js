@@ -47,8 +47,9 @@ app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$
   var userIsLoggedIn = function () {
     return $scope.logintext !== 'Login';
   };
-  
+
   $scope.toggleLoginStatus = function () {
+    $rootScope.$broadcast('openOverlay');
     if (userIsLoggedIn()) {
       $scope.logintext = 'Login';
     } else {
