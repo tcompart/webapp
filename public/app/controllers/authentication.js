@@ -44,16 +44,21 @@ app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$
     });
   };
 
+  var prepareLogin = function (callback) {
+    $rootScope.$broadcast('openOverlay');
+  };
+
   var userIsLoggedIn = function () {
-    return $scope.logintext !== 'Login';
+    return $scope.logintext === 'Login';
   };
 
   $scope.toggleLoginStatus = function () {
-    $rootScope.$broadcast('openOverlay');
     if (userIsLoggedIn()) {
-      $scope.logintext = 'Login';
+    	prepareLogin(function () {
+	      $scope.logintext = 'Logout';    		
+    	})
     } else {
-      $scope.logintext = 'Logout';
+      $scope.logintext = 'Login';
     }
   };
 

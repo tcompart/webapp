@@ -125,9 +125,18 @@
       </div>
     </div>
   </div>
-  <overlay>
+  <overlay class="container">
     <centered>
-      <h1>Willkommen</h1>
+      <h2>Login to the webapp</h2>
+      <form ng-submit="login(username, password)">
+        <label for="username">Username:
+         <input type="text" id="username" name="username" required/>
+        </label>
+        <label for="password">Password:
+          <input type="password" id="password" name="password" required />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
     </centered>
   </overlay>
   <script type="text/javascript" src="/js/angular.js"></script>

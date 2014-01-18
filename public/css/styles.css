@@ -9,7 +9,7 @@
   width:100%;
   display:table;
   pointer-events: none;
-    z-index:9999;
+  z-index:9999;
 }
 .angular-centered {
   display: table-cell;
@@ -41,4 +41,9 @@
   background-color: white;
   z-index:1002;
   overflow: auto;
+}
+
+label {
+  display: block;
+  clear: both;
 }
