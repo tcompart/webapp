@@ -1,0 +1,11 @@
+<section>
+  <article ng-show="currentArticle" ng-hide="underEdit">
+    <header>
+      <h2 ng-bind="currentArticle.title"></h2>
+    </header>
+    <p> 
+      <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
+      <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
+    </p>
+  </article>
+</section>

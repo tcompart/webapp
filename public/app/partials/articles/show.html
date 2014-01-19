@@ -1,0 +1,22 @@
+<section>
+  <article ng-show="currentArticle" ng-hide="underEdit">
+    <header>
+      <h2 ng-bind="currentArticle.title"></h2>
+    </header>
+    <p> 
+      <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
+      <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
+    </p>
+  </article>
+</section>
+<aside class="row" role="main">
+  <div class="col-md-12">
+    <h2>About section</h2>
+    <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+  </div>
+</aside>
+<footer class="row" role="main">
+  <div class="col-md-12">
+    <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
+  </div>
+</footer>

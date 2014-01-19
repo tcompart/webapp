@@ -2,7 +2,7 @@
 	<span class="pull-right" ng-click="clearMessages()"><i class="fa fa-times"></i></span>
   <ul>
     <li class="message" ng-repeat="message in messagebox.messages">
-    	<span class="message-text">{{message}}</span>
+    	<span class="message-text" ng-bind="message"></span>
     </li>
   </ul>
 </div>

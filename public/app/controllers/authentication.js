@@ -33,14 +33,46 @@ app.factory('AuthenticationService', ['$http', '$cookies', function ($http, $coo
   };
 }]);
 
+
+// //Works for 1.1.x versions. 1.0.x is similar and can be figured out using code comments
+// app.factory('myHttpResponseInterceptor',['$q','$location',function($q,$location){
+//   return {
+//     response: function(response){
+//       return promise.then(
+//         function success(response) {
+//         return response;
+//       },
+//       function error(response) {
+//         if(response.status === 401){
+//           $location.path('/signin');
+//           return $q.reject(response);
+//         }
+//         else{
+//           return $q.reject(response); 
+//         }
+//       });
+//     }
+//   }
+// }]);
+
+// app.config(['$httpProvider',function($httpProvider) {
+//   $httpProvider.interceptors.push('myHttpResponseInterceptor');
+// }]);
+
 app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$location', '$window', '$cookies', '$http', function ($rootScope, $scope, authenticationService, $location, $window, $cookies, $http) {
 
-  $scope.login = function (username, password) {
+  $scope.username = "";
+  $scope.loggedIn = "";
+  $scope.password = "";
+
+  $scope.login = function (username, inputpassword) {
+    var password = inputpassword || $scope.password;
+    $scope.password = "";
     $http.post('/login', {
-      user : username,
+      user : username || $scope.username,
       data : authenticationService.encrypt(password, authenticationService.hash([username, $cookies['XSRF-TOKEN']])).toString()
-    }).success(function (data, status, headers, config) {
-      $scope.loggedIn = data.data;
+    }).success(function (response) {
+      $http.defaults.headers.common["X-AUTH-TOKEN"] = response.data.token;
     });
   };
 
@@ -54,9 +86,9 @@ app.controller('CryptCtrl', ['$rootScope', '$scope', 'AuthenticationService', '$
 
   $scope.toggleLoginStatus = function () {
     if (userIsLoggedIn()) {
-    	prepareLogin(function () {
-	      $scope.logintext = 'Logout';    		
-    	})
+      prepareLogin(function () {
+        $scope.logintext = 'Logout';
+      });
     } else {
       $scope.logintext = 'Login';
     }

@@ -1,0 +1,14 @@
+  <overlay class="container">
+    <centered>
+      <h2>Login to the webapp</h2>
+      <form ng-submit="login(username, password)" name="LoginForm">
+        <label for="username">Username:
+         <input type="text" maxlength="50" id="username" ng-model="username" required/>
+        </label>
+        <label for="password">Password:
+          <input type="password" id="password" ng-model="password" required/>
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+    </centered>
+  </overlay>

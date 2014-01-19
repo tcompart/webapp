@@ -1,0 +1,32 @@
+<div class="row">
+  <div id="navbarSide" class="col-md-2">
+    <div data-clampedwidth=".main" class="bs-sidebar bs-docs-sidenav hidden-print affix">
+      <ul class="nav bs-sidenav">
+        <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-mouseenter="showDeleteAction(article)" ng-mouseleave="hideDeleteAction(article)" ng-click="showArticle(article)">
+          <a class="navbar-brand">
+            <span ng-bind="article.title"></span>
+            <span type="button" class="fa fa-times" ng-click="deleteArticle(article)" ng-show="showDeleteButton==article"aria-hidden="true"></span>
+          </a>
+        </li>
+        <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10" role="main">
+    <messagebox class="row"></messagebox>
+    <section>
+      <div ui-view></div>
+    </section>
+    <aside class="row" role="main">
+      <div class="col-md-12">
+        <h2>About section</h2>
+        <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+      </div>
+    </aside>
+    <footer class="row" role="main">
+      <div class="col-md-12">
+        <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
+      </div>
+    </footer>
+  </div>
+</div>

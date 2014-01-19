@@ -8,7 +8,8 @@ var express = require('express'),
   config = require('./config'),
   https = require('https'),
   http = require('http'),
-  article = routes.article;
+  article = routes.article,
+  user = routes.user;
 
 var csrfValue = function (req) {
   var token = (req.body && req.body._csrf)
@@ -94,3 +95,4 @@ var https_server = https.createServer(https_options, app).listen(secure_port, fu
 app.get('/api/articles', article.getArticles);
 app.post('/api/articles', article.addArticle);
 app.delete('/api/articles/:id', article.deleteArticle);
+app.post('/login', user.getUser);
