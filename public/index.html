@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<!--	<noscript><meta http-equiv="refresh" content="0; URL=/no_script.html"/></noscript> -->
+  <!--  <noscript><meta http-equiv="refresh" content="0; URL=/no_script.html"/></noscript> -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Your Website</title>
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
@@ -35,116 +35,28 @@
     }
     body { padding-top: 40px; }
     @media screen and (max-width: 991px) {
-        body { padding-top: 0px; }
-        #navbarSide { display: none; }
+      body { padding-top: 0px; }
+      #navbarSide { display: none; }
     }
   </style>
 </head>
-<body ng-app="webapp" ng-controller="ContentCtrl">
-	<noscript id="requirements">JavaScript is disabled. Please enable javascript. Otherwise this page will not be working as expected.</noscript>
+<body ng-app="webapp">
+  <noscript id="requirements">JavaScript is disabled. Please enable javascript. Otherwise this page will not be working as expected.</noscript>
   <div class="container">
     <div class="row">
-      <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="navbar-brand">Rethought</a>
-        </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-mouseenter="showDeleteAction(article)" ng-click="showArticle(article)">
-              <a class="navbar-brand">
-                <span ng-bind="article.title"></span>
-              </a>
-            </li>
-            <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a class="navbar-brand">About</a>
-            </li>
-            <li>
-              <login></login>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <div ui-view="articles.top"></div>
     </div>
   </div>
   <div class="container">
     <div class="row">
-      <div id="navbarSide" class="col-md-2">
-        <div data-clampedwidth=".main" class="bs-sidebar bs-docs-sidenav hidden-print affix">
-          <ul class="nav bs-sidenav">
-            <li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-mouseenter="showDeleteAction(article)" ng-mouseleave="hideDeleteAction(article)" ng-click="showArticle(article)">
-              <a class="navbar-brand">
-                <span ng-bind="article.title"></span>
-                <span type="button" class="fa fa-times" ng-click="deleteArticle(article)" ng-show="showDeleteButton==article"aria-hidden="true"></span>
-              </a>
-            </li>
-            <li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-10" role="main">
-        <messagebox class="row"></messagebox>
-        <div id="addArticleForm" ng-show="underEdit">
-          <form ng-click="validate()">
-            <span><h2>Add an article:</h2><button class="btn btn-small fa fa-times" ng-click="underEdit=false"></button></span>
-            <input placeholder="Article Title" name="titel" type="text" ng-model="title" />
-            <textarea placeholder="Content of the article" name="content" ng-model="content"></textarea>
-            <button type="submit" class="btn btn-default" ng-click="addArticle()">Add article</button>
-          </form>
-        </div>
-        <section>
-          <article ng-show="currentArticle" ng-hide="underEdit">
-            <header>
-              <h2 ng-bind="currentArticle.title"></h2>
-            </header>
-            <p> 
-              <span ng-show="currentArticle.content" ng-bind="currentArticle.content"></span>
-              <span ng-hide="currentArticle.content">Sorry, but we do not have content here!</span>
-            </p>
-          </article>
-        </section>
-        <aside class="row" role="main">
-          <div class="col-md-12">
-          <h2>About section</h2>
-          <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-          </div>
-        </aside>
-        <footer class="row" role="main">
-          <div class="col-md-12">
-            <p>Copyright 2013/2014 - <span id="version" ng-bind="contentVersion"></span></p>
-          </div>
-        </footer>
-      </div>
+      <div ui-view></div>
     </div>
   </div>
-  <overlay class="container">
-    <centered>
-      <h2>Login to the webapp</h2>
-      <form ng-submit="login(username, password)">
-        <label for="username">Username:
-         <input type="text" id="username" name="username" required/>
-        </label>
-        <label for="password">Password:
-          <input type="password" id="password" name="password" required />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </centered>
-  </overlay>
   <script type="text/javascript" src="/js/angular.js"></script>
   <script type="text/javascript" src="/js/angular-cookies.js"></script>
-  <script type="text/javascript" src="/app/controllers/message.js"></script>
-  <script type="text/javascript" src="/app/controllers/content.js"></script>
-  <script type="text/javascript" src="/app/controllers/authentication.js"></script>
-  <script type="text/javascript" src="/app/controllers/style.js"></script>
+  <script type="text/javascript" src="/js/angular-ui-router.js"></script>
+  
+  <script type="text/javascript" src="/app/modules/routing.js"></script>
   <script type="text/javascript" src="/app/app.js"></script>
 </body>
 </html>
