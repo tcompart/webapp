@@ -1,38 +1,28 @@
-var app = angular.module('webapp.routing', ['ui.router']);
-
-app.controller('ContactsCtrl', ['$scope', '$state', function ($scope, $state) {
-  $scope.change = function () {
-    $state.go('articles.navigation');
-  };
-}]);
-
-app.controller('ArticlesCtrl', ['$scope', '$state', function ($scope, $state) {
-  $scope.change = function () {
-    $state.go('contacts');
-  };
-}]);
-
+var app = angular.module('webapp.routing', ['webapp.articles', 'ui.router']);
 
 app.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('contacts', {
-    templateUrl: '/app/partials/contacts.list.html',
+    templateUrl: '/app/partials/contacts/contacts.list.html',
     controller: 'ContactsCtrl'
-  }).state('articles', {
-    templateUrl: '/app/partials/articles.list.html',
+  }).state('main', {
+    templateUrl: '/app/partials/main.html',
     controller: 'ArticlesCtrl',
     abstract: true
-  }).state('articles.navigation', {
+  }).state('main.articles', {
     views: {
       'top': {
-        templateUrl: '/app/partials/navigation/top.html',
+        templateUrl: '/app/partials/navigation/top.html'
       },
-      'articles': {
-        templateUrl: '/app/partials/navigation/article.html',
+      'content': {
+        templateUrl: '/app/partials/articles/articles.div.html'
+      },
+      'side': {
+        templateUrl: '/app/partials/articles/articles.list.html'
       }
     }
   });
 }]);
 
 app.run(['$state', function ($state) {
-  $state.go('contacts');
+  $state.go('main.articles');
 }]);

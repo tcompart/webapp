@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div ui-view="top"></div>
+	</div>
+</div>
+<div class="container">
+	<h1>Articles</h1>
+
+	<div class="row">
+
+		<div class="span8">
+			<div ui-view="content"></div>
+		</div>
+
+		<div class="span3 pull-right">
+			<div ui-view="side"></div>
+		</div>
+
+	</div>
+
+	<span class="pull-right">
+		<button type="submit" ng-click="change()">Switch</button>
+		</span>
+</div>

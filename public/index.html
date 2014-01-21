@@ -42,20 +42,15 @@
 </head>
 <body ng-app="webapp">
   <noscript id="requirements">JavaScript is disabled. Please enable javascript. Otherwise this page will not be working as expected.</noscript>
-  <div class="container">
-    <div class="row">
-      <div ui-view="articles.top"></div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div ui-view></div>
-    </div>
-  </div>
+
+  <div ui-view></div>
+
   <script type="text/javascript" src="/js/angular.js"></script>
   <script type="text/javascript" src="/js/angular-cookies.js"></script>
   <script type="text/javascript" src="/js/angular-ui-router.js"></script>
   
+  <script type="text/javascript" src="/app/modules/messages.js"></script>
+  <script type="text/javascript" src="/app/modules/articles.js"></script>
   <script type="text/javascript" src="/app/modules/routing.js"></script>
   <script type="text/javascript" src="/app/app.js"></script>
 </body>
