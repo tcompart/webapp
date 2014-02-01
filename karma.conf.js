@@ -20,7 +20,7 @@ module.exports = function (config) {
       'public/js/angular-mocks.js'
     ],
     preprocessors : {
-      'public/app/partials/*.html': ['ng-html2js']
+      'public/app/partials/**/*.html': ['ng-html2js']
     },
     ngHtml2JsPreprocessor: {
       moduleName: 'templates'

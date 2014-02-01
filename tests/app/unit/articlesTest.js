@@ -1,13 +1,13 @@
 /*globals it, describe, beforeEach, inject, expect */
 'use strict';
 
-describe('ContentController', function () {
-  var $scope, $rootScope, createController, articleService, messageService, controller, givenArticle;
+describe('ArticlesCtrl', function () {
+  var $scope, $rootScope, articleService, messageService, givenArticle;
 
   beforeEach(module('webapp.articles'));
 
-  beforeEach(inject(function ($injector) {
-    $rootScope = $injector.get('$rootScope');
+  beforeEach(inject(function (_$rootScope_, _$controller_) {
+    $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
 
     articleService = {
@@ -18,17 +18,12 @@ describe('ContentController', function () {
     };
     messageService = {};
 
-    var $controller = $injector.get('$controller');
-
-    createController = function () {
-      return $controller('ContentCtrl', {
-        '$scope': $scope,
-        'ArticleService': articleService,
-        'Version' : '1',
-        'MessageService': messageService
-      });
-    };
-    controller = createController();
+    _$controller_('ArticlesCtrl', {
+      '$scope': $scope,
+      'ArticleService': articleService,
+      'Version' : '1',
+      'MessageService': messageService
+    });
     givenArticle = { title : "this is some article", content: "This is the content." };
   }));
 

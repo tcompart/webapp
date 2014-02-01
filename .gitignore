@@ -1,4 +1,8 @@
+.DS_Store
+.idea
 newrelic_*.log
 public/components/
 node_modules/
 data/
+webapp.iml
+webapp.sublime-workspace

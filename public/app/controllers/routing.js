@@ -18,7 +18,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$state", function ($statePr
 
   $stateProvider.state('main', {
     url: "/",
-    templateUrl: "/app/partials/main.html"
+    templateUrl: "/app/partials/main.html",
     controller: "ContentCtrl"
   }).state("login", {
     url: "/signin",
@@ -26,9 +26,9 @@ app.config(["$stateProvider", "$urlRouterProvider", "$state", function ($statePr
     controller: "CryptCtrl"
   }).state('articles', {
     views: {
-      "articles.show" { controller : "ContentCtrl" },
-      "articles.add" { controller: "ContentCtrl" },
-      "articles.edit" { controller: "ContentCtrl" }
+      "articles.show": { controller : "ContentCtrl" },
+      "articles.add": { controller: "ContentCtrl" },
+      "articles.edit": { controller: "ContentCtrl" }
     }
   });
 

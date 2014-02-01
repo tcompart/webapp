@@ -1,0 +1,6 @@
+<li ng-repeat="article in articles" ng-class="{active : currentArticle == article}" ng-mouseenter="showDeleteAction(article)" ng-click="showArticle(article)">
+	<a class="navbar-brand">
+		<span ng-bind="article.title"></span>
+	</a>
+</li>
+<li ng-click="showNewArticleDiv()"><a class="navbar-brand fa fa-plus"></a></li>
