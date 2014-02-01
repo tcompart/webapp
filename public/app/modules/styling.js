@@ -27,7 +27,7 @@ app.directive("overlay", function () {
     scope: {},
     controller: 'OverlayCtrl',
     transclude: true,
-    templateUrl: '/app/partials/overlay.html'
+    templateUrl: '/app/partials/login/overlay.html'
   };
 });
 
@@ -35,6 +35,6 @@ app.directive("centered", function () {
   return {
     restrict: "ECA",
     transclude: true,
-    templateUrl: '/app/partials/centered.html'
+    templateUrl: '/app/partials/login/centered.html'
   };
 });

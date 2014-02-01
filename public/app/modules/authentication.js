@@ -117,7 +117,7 @@ app.directive('login', [function () {
     replace: true,
     scope: {},
     controller: 'CryptCtrl',
-    templateUrl: '/app/partials/login-logout-status.html',
+    templateUrl: '/app/partials/login/login-logout-status.html',
     link: function (scope, element, attrs) {
       scope.toggleLoginStatus();
       element.bind('click', function () {
