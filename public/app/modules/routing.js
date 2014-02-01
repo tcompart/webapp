@@ -1,14 +1,19 @@
 var app = angular.module('webapp.routing', ['webapp.articles', 'ui.router']);
 
+var articlesList = {
+  templateUrl: '/app/partials/articles/articles.list.html'
+};
+
 app.config(['$stateProvider', function ($stateProvider) {
+
   $stateProvider.state('contacts', {
     templateUrl: '/app/partials/contacts/contacts.list.html',
     controller: 'ContactsCtrl'
-  }).state('main', {
+  }).state('navigation', {
     templateUrl: '/app/partials/main.html',
     controller: 'ArticlesCtrl',
-    abstract: true
-  }).state('main.articles', {
+  }).state('navigation.articles', {
+    parent: 'navigation',
     views: {
       'top': {
         templateUrl: '/app/partials/navigation/top.html'
@@ -16,13 +21,11 @@ app.config(['$stateProvider', function ($stateProvider) {
       'content': {
         templateUrl: '/app/partials/articles/articles.div.html'
       },
-      'side': {
-        templateUrl: '/app/partials/articles/articles.list.html'
-      }
+      'side': articlesList
     }
   });
 }]);
 
 app.run(['$state', function ($state) {
-  $state.go('main.articles');
+  $state.transitionTo('navigation.articles');
 }]);
