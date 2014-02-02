@@ -11,7 +11,7 @@ app.config(['$stateProvider', function ($stateProvider) {
     controller: 'ContactsCtrl'
   }).state('navigation', {
     templateUrl: '/app/partials/main.html',
-    controller: 'ArticlesCtrl',
+    controller: 'ArticlesCtrl'
   }).state('navigation.articles', {
     parent: 'navigation',
     views: {
