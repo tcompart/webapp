@@ -48,6 +48,7 @@
     "karma-jasmine": "*",
     "karma-junit-reporter": "*",
     "karma-remote-reporter": "*",
-    "karma-ng-html2js-preprocessor": "*"
+    "karma-ng-html2js-preprocessor": "*",
+    "grunt-express-server": "~0.4.11"
   }
 }
